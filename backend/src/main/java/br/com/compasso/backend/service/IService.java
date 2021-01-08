@@ -1,27 +1,30 @@
 package br.com.compasso.backend.service;
 
+import br.com.compasso.backend.dto.IdDto;
+import br.com.compasso.backend.entity.IdEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
-public interface IService<T, I> {
+public interface IService<T extends IdEntity, G extends IdDto,  P extends IdDto,  U extends IdDto, A extends IdDto, I> {
 
     Optional<T> findById(I id);
 
-    T findByIdOrException(I id);
+    G findByIdOrException(I id);
 
-    T insert(T t);
+    G insert(P t);
 
-    T update(T t, I id);
+    G update(U t, I id);
+
+    G patch(A t, I id);
 
     boolean deleteById(I id);
 
-    Page<T> findAll(Pageable pageRequest);
+    Page<G> findAll(Pageable pageRequest);
 
-    List<T> findAll();
+    List<G> findAll();
 
     void validateBeforeInsert(T ent);
 

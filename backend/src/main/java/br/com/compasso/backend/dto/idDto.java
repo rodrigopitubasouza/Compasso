@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class idDto extends SystemDto{
+public class IdDto extends SystemDto{
 
     @ApiModelProperty(value = "Id do registro", example = "0")
     private Long id;
