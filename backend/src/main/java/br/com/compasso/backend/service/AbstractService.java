@@ -27,7 +27,7 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
     private static final Logger log = LoggerFactory.getLogger(AbstractService.class);
 
     @Autowired
-    ModelMapper modelMapper;
+    public ModelMapper modelMapper;
 
     public AbstractService(final IRepository<T> repository) {
         this.repository = repository;
@@ -51,6 +51,7 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
         T entity = convertToEntity(dto);
         validateBeforeInsert(entity);
         beforeInsert(entity);
+        treatJoinColumnsInsert(entity, dto);
         T entitySaved = null;
         try {
             log.info("Tentativa de inserção da entidade {} objeto {}", entity.getClass().getSimpleName(), entity);
@@ -63,7 +64,7 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
         return convertToDto(afterInsert(entitySaved));
     }
 
-    private G update(final T entity) {
+    private G update(final T entity, IdDto dto) {
         validateBeforeUpdate(entity);
         beforeUpdate(entity);
         T entitySaved = null;
@@ -84,7 +85,8 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
         findByIdOrException(id);
         dto.setId(id);
         T entity = convertToEntity(dto);
-        return update(entity);
+        treatJoinColumnsUpdate(entity, dto);
+        return update(entity, dto);
     }
 
     @Override
@@ -92,7 +94,8 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
         T entity = findByIdOrExceptionEntity(id);
         dto.setId(id);
         convertToEntity(dto, entity);
-        return update(entity);
+        treatJoinColumnsPatch(entity, dto);
+        return update(entity, dto);
     }
 
     @Override
@@ -171,11 +174,23 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
     public void validateBeforeUpdate(T ent) {
     }
 
+    @Override
+    public void treatJoinColumnsInsert(T entity, P dto) {
+    }
+
+    @Override
+    public void treatJoinColumnsUpdate(T entity, U dto) {
+    }
+
+    @Override
+    public void treatJoinColumnsPatch(T entity, A dto) {
+    }
+
     protected EntityNotFoundException notFoundById(final Long id) {
         return new EntityNotFoundException(ErrorMessageEnum.ENTIDADE_INEXISTENTE.getMessage(generateDescription(), id));
     }
 
-    private T findByIdOrExceptionEntity(Long id) {
+    protected T findByIdOrExceptionEntity(Long id) {
         return findById(id).orElseThrow(() -> notFoundById(id));
     }
 

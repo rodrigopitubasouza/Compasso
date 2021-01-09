@@ -41,4 +41,10 @@ public interface IService<T extends IdEntity, G extends IdDto,  P extends IdDto,
     void afterDelete(T ent);
 
     void beforeDelete(T ent);
+
+    void treatJoinColumnsInsert(T ent, P dto);
+
+    void treatJoinColumnsUpdate(T ent, U dto);
+
+    void treatJoinColumnsPatch(T ent, A dto);
 }

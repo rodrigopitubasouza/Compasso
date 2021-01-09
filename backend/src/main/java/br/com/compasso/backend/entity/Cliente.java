@@ -6,6 +6,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -27,4 +30,8 @@ public class Cliente extends IdEntity{
 
     @Column(name = "IDADE")
     private Integer idade;
+
+    @JoinColumn(name = "ID_CIDADE", updatable = false, nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cidade cidade;
 }
