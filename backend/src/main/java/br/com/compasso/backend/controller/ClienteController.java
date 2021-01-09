@@ -4,6 +4,7 @@ import br.com.compasso.backend.dto.ClienteDto;
 import br.com.compasso.backend.dto.ClientePatchDto;
 import br.com.compasso.backend.exception.MethodNotImplemented;
 import br.com.compasso.backend.service.ClienteService;
+import br.com.compasso.backend.specification.ClienteSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,15 +25,16 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/cliente")
-public class ClienteController implements IController<ClienteDto, ClienteDto, ClienteDto, ClientePatchDto> {
+public class ClienteController implements IController<ClienteDto, ClienteDto, ClienteDto, ClientePatchDto, ClienteSpecification> {
 
     @Autowired
     private ClienteService clienteService;
 
     @Override
     @GetMapping
-    public ResponseEntity<Page<ClienteDto>> getObjectList(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) final Pageable page) {
-        Page<ClienteDto> dados = clienteService.findAll(page);
+    public ResponseEntity<Page<ClienteDto>> getObjectList(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) final Pageable page,
+                                                          ClienteSpecification search) {
+        Page<ClienteDto> dados = clienteService.findAll(search, page);
         if (dados == null || dados.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(dados);

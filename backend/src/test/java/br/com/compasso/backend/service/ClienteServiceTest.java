@@ -4,6 +4,7 @@ import br.com.compasso.backend.dto.ClienteDto;
 import br.com.compasso.backend.dto.ClientePatchDto;
 import br.com.compasso.backend.entity.Cidade;
 import br.com.compasso.backend.entity.Cliente;
+import br.com.compasso.backend.specification.ClienteSpecification;
 import org.junit.Assert;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -11,7 +12,7 @@ import org.mockito.Mockito;
 
 import java.time.LocalDate;
 
-public class ClienteServiceTest extends AbstractServiceTest<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto>{
+public class ClienteServiceTest extends AbstractServiceTest<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto, ClienteSpecification>{
 
     @InjectMocks
     private ClienteService clienteService;
@@ -115,7 +116,7 @@ public class ClienteServiceTest extends AbstractServiceTest<Cliente, ClienteDto,
     }
 
     @Override
-    protected AbstractService<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto> getInstance() {
+    protected AbstractService<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto, ClienteSpecification> getInstance() {
         return clienteService;
     }
 }

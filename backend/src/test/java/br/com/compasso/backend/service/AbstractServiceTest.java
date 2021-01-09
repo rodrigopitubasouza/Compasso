@@ -12,14 +12,15 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
-public abstract class AbstractServiceTest<T extends IdEntity, G extends IdDto,  P extends IdDto,  U extends IdDto, A extends  IdDto> {
+public abstract class AbstractServiceTest<T extends IdEntity, G extends IdDto,  P extends IdDto,  U extends IdDto, A extends  IdDto, S extends Specification<T>> {
 
-    private AbstractService<T, G, P, U, A> abstractService;
+    private AbstractService<T, G, P, U, A, S> abstractService;
 
     @Spy
     private IRepository<T> iRepository;
@@ -118,5 +119,5 @@ public abstract class AbstractServiceTest<T extends IdEntity, G extends IdDto,  
         return true;
     }
 
-    protected abstract AbstractService<T, G, P, U, A> getInstance();
+    protected abstract AbstractService<T, G, P, U, A, S> getInstance();
 }

@@ -2,10 +2,11 @@ package br.com.compasso.backend.service;
 
 import br.com.compasso.backend.dto.CidadeDto;
 import br.com.compasso.backend.entity.Cidade;
+import br.com.compasso.backend.specification.CidadeSpecification;
 import org.junit.Assert;
 import org.mockito.InjectMocks;
 
-public class CidadeServiceTest extends AbstractServiceTest<Cidade, CidadeDto, CidadeDto, CidadeDto, CidadeDto>{
+public class CidadeServiceTest extends AbstractServiceTest<Cidade, CidadeDto, CidadeDto, CidadeDto, CidadeDto, CidadeSpecification>{
 
     @InjectMocks
     private CidadeService cidadeService;
@@ -16,7 +17,6 @@ public class CidadeServiceTest extends AbstractServiceTest<Cidade, CidadeDto, Ci
         CidadeDto cidade = new CidadeDto();
         cidade.setNome("nome");
         cidade.setEstado("estado");
-
         return cidade;
     }
 
@@ -88,7 +88,7 @@ public class CidadeServiceTest extends AbstractServiceTest<Cidade, CidadeDto, Ci
 
 
     @Override
-    protected AbstractService<Cidade, CidadeDto, CidadeDto, CidadeDto, CidadeDto> getInstance() {
+    protected AbstractService<Cidade, CidadeDto, CidadeDto, CidadeDto, CidadeDto, CidadeSpecification> getInstance() {
         return cidadeService;
     }
 }

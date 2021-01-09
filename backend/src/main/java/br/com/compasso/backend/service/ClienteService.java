@@ -5,11 +5,12 @@ import br.com.compasso.backend.dto.ClientePatchDto;
 import br.com.compasso.backend.entity.Cidade;
 import br.com.compasso.backend.entity.Cliente;
 import br.com.compasso.backend.repository.IRepository;
+import br.com.compasso.backend.specification.ClienteSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClienteService extends AbstractService<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto> {
+public class ClienteService extends AbstractService<Cliente, ClienteDto, ClienteDto, ClienteDto, ClientePatchDto, ClienteSpecification> {
 
     @Autowired
     private CidadeService cidadeService;

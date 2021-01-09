@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 
 import java.lang.reflect.ParameterizedType;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P extends IdDto,  U extends IdDto, A extends  IdDto> implements IService<T, G, P, U, A, Long> {
+public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P extends IdDto,  U extends IdDto, A extends  IdDto, S extends Specification<T>> implements IService<T, G, P, U, A, S, Long> {
     protected final IRepository<T> repository;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractService.class);
@@ -116,13 +117,13 @@ public abstract class AbstractService<T extends IdEntity, G extends IdDto,  P ex
     }
 
     @Override
-    public Page<G> findAll(final Pageable pageRequest) {
-       return convertToPageDto(repository.findAll(pageRequest));
+    public Page<G> findAll(S search, final Pageable pageRequest) {
+       return convertToPageDto(repository.findAll(search, pageRequest));
     }
 
     @Override
-    public List<G> findAll() {
-        return convertToListDto(repository.findAll());
+    public List<G> findAll(S search) {
+        return convertToListDto(repository.findAll(search));
     }
 
     private String generateDescription() {

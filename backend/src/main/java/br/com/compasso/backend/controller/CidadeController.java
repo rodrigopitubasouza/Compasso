@@ -3,6 +3,7 @@ package br.com.compasso.backend.controller;
 import br.com.compasso.backend.dto.CidadeDto;
 import br.com.compasso.backend.exception.MethodNotImplemented;
 import br.com.compasso.backend.service.CidadeService;
+import br.com.compasso.backend.specification.CidadeSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,15 +24,16 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/cidade")
-public class CidadeController implements IController<CidadeDto, CidadeDto, CidadeDto, CidadeDto> {
+public class CidadeController implements IController<CidadeDto, CidadeDto, CidadeDto, CidadeDto, CidadeSpecification> {
 
     @Autowired
     private CidadeService cidadeService;
 
     @Override
     @GetMapping
-    public ResponseEntity<Page<CidadeDto>> getObjectList(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) final Pageable page) {
-        Page<CidadeDto> dados = cidadeService.findAll(page);
+    public ResponseEntity<Page<CidadeDto>> getObjectList(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) final Pageable page,
+                                                         CidadeSpecification search) {
+        Page<CidadeDto> dados = cidadeService.findAll(search, page);
         if (dados == null || dados.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(dados);

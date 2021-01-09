@@ -7,17 +7,18 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import springfox.documentation.annotations.ApiIgnore;
 
-public interface IController<G extends IdDto, P extends IdDto, U extends IdDto, A extends IdDto> {
+public interface IController<G extends IdDto, P extends IdDto, U extends IdDto, A extends IdDto, S extends Specification> {
 
     @ApiOperation(value = "Retorna uma página do objeto.", responseContainer = "content")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Retorna uma página do objeto."),
             @ApiResponse(code = 204, message = "Nenhum dado foi encontrado."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção."), })
-    ResponseEntity<Page<G>> getObjectList(@ApiIgnore Pageable page);
+    ResponseEntity<Page<G>> getObjectList(@ApiIgnore Pageable page, S search);
 
     @ApiOperation(value = "Retorna um Objeto", responseContainer = "content")
     @ApiResponses(value = {
