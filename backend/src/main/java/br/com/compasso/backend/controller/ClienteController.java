@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/cidade")
+@RequestMapping(value = "/cliente")
 public class ClienteController implements IController<ClienteDto, ClienteDto, ClienteDto, ClientePatchDto> {
 
     @Autowired
