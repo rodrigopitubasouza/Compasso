@@ -1,0 +1,19 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">Estrelas de {{userName}}</div>
+    <div class="card">
+      <div class="row">
+        <div class="col-12">
+          <app-table [cols]="starredCols" [values]="stars" [loading]="loadingStarred">
+          </app-table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary" (click)="back()">
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>

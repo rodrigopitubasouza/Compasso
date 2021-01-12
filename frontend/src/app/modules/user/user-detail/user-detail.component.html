@@ -1,0 +1,164 @@
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-header">Dados Básicos</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <img
+            [src]="user?.avatar_url"
+            alt="Foto do Perfil"
+            style="width: inherit"
+          />
+        </div>
+
+        <div class="col-sm-6 col-md-9">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <app-input
+                id="nome"
+                label="Nome"
+                [readonly]="true"
+                [value]="user?.name"
+              ></app-input>
+            </div>
+
+            <div class="col-sm-12 col-md-6">
+              <app-input
+                id="login"
+                label="Login"
+                [readonly]="true"
+                [value]="user?.login"
+              ></app-input>
+            </div>
+          </div>
+
+          <div class="row pb-1">
+            <div class="col-12">
+              <label for="bio">Bio</label>
+              <textarea
+                class="form-control"
+                id="bio"
+                rows="6"
+                readonly
+                [ngModel]="user?.bio"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Dados de Contato</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <app-input
+            id="email"
+            label="Email"
+            [readonly]="true"
+            [value]="user?.email"
+          ></app-input>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+          <app-input
+            id="twitter"
+            label="Nome Twitter"
+            [readonly]="true"
+            [value]="user?.twitter_username"
+          ></app-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <app-input
+            id="localizacao"
+            label="Localização"
+            [readonly]="true"
+            [value]="user?.location"
+          ></app-input>
+        </div>
+        <div class="col-6">
+          <app-input
+            id="empresa"
+            label="Empresa"
+            [readonly]="true"
+            [value]="user?.company"
+          ></app-input>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Dados do GitHub</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6 col-sm-3">
+          <app-input
+            id="repositorios"
+            label="Repositórios"
+            [readonly]="true"
+            [value]="user?.public_repos?.toString()"
+          ></app-input>
+        </div>
+        <div class="col-6 col-sm-3">
+          <app-input
+            id="gists"
+            label="Gists"
+            [readonly]="true"
+            [value]="user?.public_gists?.toString()"
+          ></app-input>
+        </div>
+        <div class="col-6 col-sm-3">
+          <app-input
+            id="seguindo"
+            label="Seguindo"
+            [readonly]="true"
+            [value]="user?.followers?.toString()"
+          ></app-input>
+        </div>
+        <div class="col-6 col-sm-3">
+          <app-input
+            id="seguidores"
+            label="Seguidores"
+            [readonly]="true"
+            [value]="user?.following?.toString()"
+          ></app-input>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-12 col-md-3">
+          <app-input
+            id="criado"
+            label="Criado em"
+            [readonly]="true"
+            [value]="formatedDate"
+          ></app-input>
+        </div>
+
+        <div class="col-md-9 col-12">
+          <app-input
+            id="link"
+            label="Link"
+            [readonly]="true"
+            [value]="user?.url"
+          ></app-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary" (click)="back()">
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

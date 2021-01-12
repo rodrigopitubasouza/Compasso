@@ -1,0 +1,72 @@
+<div class="container mt-3">
+    <div class="card">
+      <div class="card-header">Usuarios GitHub</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group col-4">
+              <app-input
+                label="Usuário"
+                [(ngModel)]="name"
+                placeholder="Digite o usuário"
+                ngDefaultControl
+              ></app-input>
+          </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-12 d-flex justify-content-end">
+            <app-button
+              type="submit"
+              label="Buscar"
+              class="primary"
+              (click)="search()"
+              [disabled]="!name"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card mt-3">
+      <div class="row">
+        <div class="col-12">
+          <app-table
+            [cols]="userCols"
+            [values]="users"
+            [hasActions]="true"
+            [actions]="actions"
+            [loading]="loadingUser"
+          >
+            <ng-template #actions let-rowData="rowData">
+              <div class="d-flex justify-content-between">
+                <app-button
+                  icon="fas fa-book"
+                  class="outline-primary btn-sm"
+                  type="button"
+                  [routerLink]="[rowData.login, 'repos']"
+                ></app-button>
+  
+                <app-button
+                  icon="fas fa-star"
+                  class="outline-primary btn-sm"
+                  type="button"
+                  [routerLink]="[rowData.login, 'starred']"
+                  [state]="rowData"
+                ></app-button>
+
+                <app-button
+                  icon="fas fa-user"
+                  class="outline-primary btn-sm"
+                  type="button"
+                  [routerLink]="['detail']"
+                  [state]="rowData"
+              ></app-button>
+              </div>
+            </ng-template>
+          </app-table>
+        </div>
+      </div>
+    </div>
+  </div>
