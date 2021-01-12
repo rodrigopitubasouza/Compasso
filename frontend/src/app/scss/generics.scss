@@ -1,0 +1,33 @@
+@import 'shared/shared.scss';
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: $bege !important;
+    font-size: .8em;
+    font-family: $font-family;
+}
+
+.color-preto-header {
+    color: $preto !important;
+}
+
+h3 {
+    font-size: 1.5rem !important;
+}
+
+label {
+    display: flex !important;
+    margin: 0 !important;
+    font-size: .8em;
+
+   .required-label {
+      color: $vermelho;
+      margin-left: 2px;
+   }
+}
+
+table {
+    font-size: .9em;
+}
+
