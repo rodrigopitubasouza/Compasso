@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UserRouting } from './user.routing';
-import { TesteComponent } from './teste/teste.component';
-
 @NgModule({
-  declarations: [TesteComponent],
+  declarations: [],
   imports: [
     UserRouting,
   ]
