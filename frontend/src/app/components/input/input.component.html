@@ -1,0 +1,7 @@
+<label>{{ label }}
+    <span class="required-label" *ngIf="requiredLabel"> *</span>
+</label>
+
+<input [type]="type" (ngModelChange)="ngModelChange()" tabindex="tabindex"
+       [max]="max" [min]="min" [disabled]="disabled" [placeholder]="placeholder"
+       [value]="value ? value : null" [readonly]="readonly" class="{{inputClass}}"/>

@@ -1,0 +1,57 @@
+<div class="table-responsive">
+    <table class="table mb-0">
+      <thead class="theader">
+        <th
+          *ngFor="let col of cols; let i = index"
+          [style.width]="col.width"
+          [style.textAlign]="col.align"
+        >
+          {{ col.header }}
+        </th>
+        <th
+          *ngIf="hasActions"
+          class="text-center"
+          [ngStyle]="{ width: actionsWidth }"
+        >
+          Ações
+        </th>
+      </thead>
+      <tbody *ngIf="!loading">
+        <tr *ngFor="let value of values; let i = index">
+          <td
+            *ngFor="let col of cols"
+            [style.width]="col.width"
+            [style.textAlign]="col.align"
+          >
+            <span>
+              {{ getValue(value, col) }}
+            </span>
+          </td>
+          <td
+            *ngIf="hasActions"
+            class="text-center"
+            [ngStyle]="{ width: actionsWidth }"
+          >
+            <ng-container
+              *ngTemplateOutlet="actions; context: { rowData: value, index: i }"
+            ></ng-container>
+          </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr *ngIf="loading">
+          <td class="py-4 text-center" colspan="100%">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </td>
+        </tr>
+  
+        <tr *ngIf="!loading && (!values || values.length == 0)">
+          <td class="py-4 text-center" colspan="100%">
+            {{ emptyMessage }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

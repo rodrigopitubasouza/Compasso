@@ -1,0 +1,5 @@
+  
+<button type="{{type}}" class="btn btn-{{class}}" style="min-width: 40px;" [disabled]="disabled">
+    <i class="{{icon}}" *ngIf="icon"></i>
+    <span *ngIf="label" [ngClass]="{'ml-2': icon}">{{label}}</span>
+</button>
