@@ -14,46 +14,46 @@ describe('UsersService', () => {
       imports: [HttpClientTestingModule]
     });
     service = TestBed.inject(UsersService);
-    httpMock = TestBed.get(HttpTestingController);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
     httpMock.verify();
   });
 
-    it('Should return the user, if exist username', async () => {
-        const dummyUser = {
-          id: 1,
-          name: 'teste 1',
-          login: 'testeUsuarioExistente',
-          public_repos: 1,
-          followers: 1,
-          following: 1
-        }
+  it('Should return the user, if exist username', async () => {
+    const dummyUser = {
+      id: 1,
+      name: 'teste 1',
+      login: 'testeUsuarioExistente',
+      public_repos: 1,
+      followers: 1,
+      following: 1
+    };
 
-        service.findByUserName('testeUsuarioExistente').subscribe(user => {
-          expect(user).toEqual(dummyUser);
-        })
-
-        const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER).concat('/testeUsuarioExistente'));
-
-        expect(request.request.method).toBe('GET');
-
-        request.flush(dummyUser);
+    service.findByUserName('testeUsuarioExistente').subscribe(user => {
+      expect(user).toEqual(dummyUser);
     });
 
-    it('Should return empty, if not exist username', async () => {
-      const dummyUser = [];
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER).concat('/testeUsuarioExistente'));
 
-      service.findByUserName('usuarioTotalmenteInexistente').subscribe(user => {
-        expect(user).toEqual([]);
-      })
+    expect(request.request.method).toBe('GET');
 
-      const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
+    request.flush(dummyUser);
+  });
+
+  it('Should return empty, if not exist username', async () => {
+    const dummyUser = [];
+
+    service.findByUserName('usuarioTotalmenteInexistente').subscribe(user => {
+      expect(user).toEqual([]);
+    });
+
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
       .concat('/usuarioTotalmenteInexistente'));
 
-      expect(request.request.method).toBe('GET');
+    expect(request.request.method).toBe('GET');
 
-      request.flush(dummyUser);
-   });
+    request.flush(dummyUser);
+  });
 });

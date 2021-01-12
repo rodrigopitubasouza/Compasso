@@ -20,46 +20,46 @@ describe('UserRepositoryService', () => {
     httpMock.verify();
   });
 
-    it('Should return the repositories of user, if exist username', async () => {
-        const dummyRepos = [{
-          id: 1,
-          name: 'teste 1',
-          html_url: 'teste.com',
-          language: 'JavaScript'
-        },
-        {
-          id: 2,
-          name: 'teste 2',
-          html_url: 'teste2.com',
-          language: 'Java'
-        }
-      ];
+  it('Should return the repositories of user, if exist username', async () => {
+    const dummyRepos = [{
+      id: 1,
+      name: 'teste 1',
+      html_url: 'teste.com',
+      language: 'JavaScript'
+    },
+    {
+      id: 2,
+      name: 'teste 2',
+      html_url: 'teste2.com',
+      language: 'Java'
+    }
+    ];
 
-        service.findByUserName('testeUsuarioExistente').subscribe(repos => {
-          expect(repos.length).toBe(2);
-          expect(repos).toEqual(dummyRepos);
-        })
-
-        const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
-        .concat('/testeUsuarioExistente').concat(AppConstants.REPOSITORY_CONTROLLER));
-
-        expect(request.request.method).toBe('GET');
-
-        request.flush(dummyRepos);
+    service.findByUserName('testeUsuarioExistente').subscribe(repos => {
+      expect(repos.length).toBe(2);
+      expect(repos).toEqual(dummyRepos);
     });
 
-    it('Should return empty, if not exist username', async () => {
-      const dummyRepos = [];
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
+      .concat('/testeUsuarioExistente').concat(AppConstants.REPOSITORY_CONTROLLER));
 
-      service.findByUserName('usuarioTotalmenteInexistente').subscribe(repos => {
-        expect(repos).toEqual([]);
-      })
+    expect(request.request.method).toBe('GET');
 
-      const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
+    request.flush(dummyRepos);
+  });
+
+  it('Should return empty, if not exist username', async () => {
+    const dummyRepos = [];
+
+    service.findByUserName('usuarioTotalmenteInexistente').subscribe(repos => {
+      expect(repos).toEqual([]);
+    });
+
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
       .concat('/usuarioTotalmenteInexistente').concat(AppConstants.REPOSITORY_CONTROLLER));
 
-      expect(request.request.method).toBe('GET');
+    expect(request.request.method).toBe('GET');
 
-      request.flush(dummyRepos);
-   });
+    request.flush(dummyRepos);
   });
+});

@@ -49,7 +49,6 @@ describe('UserRepositoryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  
   it('ngOnInit should get username', () => {
     component.ngOnInit();
     expect(component.userName).toEqual('teste');

@@ -21,44 +21,44 @@ describe('UserRepositoryService', () => {
     httpMock.verify();
   });
 
-    it('Should return the stars for user, if exist username', async () => {
-        const dummyStars = [{
-          id: 1,
-          name: 'teste 1',
-          html_url: 'teste.com'
-        },
-        {
-          id: 2,
-          name: 'teste 2',
-          html_url: 'teste2.com'
-        }
-      ];
+  it('Should return the stars for user, if exist username', async () => {
+    const dummyStars = [{
+      id: 1,
+      name: 'teste 1',
+      html_url: 'teste.com'
+    },
+    {
+      id: 2,
+      name: 'teste 2',
+      html_url: 'teste2.com'
+    }
+    ];
 
-        service.findByUserName('testeUsuarioExistente').subscribe(repos => {
-          expect(repos.length).toBe(2);
-          expect(repos).toEqual(dummyStars);
-        })
-
-        const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
-        .concat('/testeUsuarioExistente').concat(AppConstants.STARRED_CONTROLLER));
-
-        expect(request.request.method).toBe('GET');
-
-        request.flush(dummyStars);
+    service.findByUserName('testeUsuarioExistente').subscribe(repos => {
+      expect(repos.length).toBe(2);
+      expect(repos).toEqual(dummyStars);
     });
 
-    it('Should return empty, if not exist username', async () => {
-      const dummyStars = [];
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
+      .concat('/testeUsuarioExistente').concat(AppConstants.STARRED_CONTROLLER));
 
-      service.findByUserName('usuarioTotalmenteInexistente').subscribe(stars => {
-        expect(stars).toEqual([]);
-      })
+    expect(request.request.method).toBe('GET');
 
-      const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
+    request.flush(dummyStars);
+  });
+
+  it('Should return empty, if not exist username', async () => {
+    const dummyStars = [];
+
+    service.findByUserName('usuarioTotalmenteInexistente').subscribe(stars => {
+      expect(stars).toEqual([]);
+    });
+
+    const request = httpMock.expectOne(environment.applicationUrl.concat('/').concat(AppConstants.USER_CONTROLLER)
       .concat('/usuarioTotalmenteInexistente').concat(AppConstants.STARRED_CONTROLLER));
 
-      expect(request.request.method).toBe('GET');
+    expect(request.request.method).toBe('GET');
 
-      request.flush(dummyStars);
-   });
+    request.flush(dummyStars);
   });
+});
